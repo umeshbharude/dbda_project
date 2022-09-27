@@ -1,0 +1,17 @@
+#!/bin/bash
+sudo apt-get update
+sudo apt install python3-pip
+pip install kaggle
+echo "create kaggle directory"
+mkdir ~/.kaggle
+echo "Move kaggle.json File To The .kaggle Directory"
+mv kaggle.json /home/ubuntu/.kaggle
+chmod 600 ~/.kaggle/kaggle.json
+/home/ubuntu/.local/bin/kaggle competitions list
+echo "Download The Dataset From Kaggle"
+/home/ubuntu/.local/bin/kaggle datasets download -d jeegarmaru/campaign-contributions-19902016
+sudo apt install awscli
+aws s3 ls
+echo "Saving Your Dataset Into S3"
+aws s3 cp *.zip s3://projectrawdata
+echo "success"
